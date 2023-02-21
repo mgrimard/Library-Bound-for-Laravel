@@ -1,0 +1,56 @@
+{
+    "name": "kfpl/librarybound",
+    "description": "A Library Bound client.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KFPL",
+            "email":"webmaster@kfpl.ca"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-soap": "*"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "nunomaduro/collision": "^6.1",
+        "nunomaduro/larastan": "^2.0.1",
+        "orchestra/testbench": "^8.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kfpl\\LibraryBound\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kfpl\\LibraryBound\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/phpunit",
+        "format": "vendor/bin/pint"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kfpl\\LibraryBound\\LibraryBoundServiceProvider"
+            ],
+            "aliases": {
+                "LibraryBound": "Kfpl\\LibraryBound\\LibraryBoundFacade"
+            }
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    }
+}
