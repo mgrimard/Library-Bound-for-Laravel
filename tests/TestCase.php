@@ -1,20 +1,23 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Kfpl\LibraryBound\Test;
 
+use Dotenv\Dotenv;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use KFPL\LibraryBound\LibraryBoundServiceProvider;
+use Illuminate\Support\Facades\Http;
+use Kfpl\LibraryBound\LibraryBoundFacade;
+use Kfpl\LibraryBound\LibraryBoundServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
     protected function setUp(): void
     {
-        parent::setUp();
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../', '.env.test');
+        $dotenv->load();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'KFPL\\LibraryBound\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        parent::setUp();
+//        Http::preventStrayRequests();
     }
 
     protected function getPackageProviders($app)
@@ -24,13 +27,20 @@ class TestCase extends Orchestra
         ];
     }
 
+    /**
+     * Load package alias
+     * @param \Illuminate\Foundation\Application $app
+     *
+     * @return array
+     */
+    protected function getPackageAliases($app) {
+        return [
+            'LibraryBound' => LibraryBoundFacade::class,
+        ];
+    }
+
     public function getEnvironmentSetUp($app)
     {
-        config()->set('database.default', 'testing');
-
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
-        $migration->up();
-        */
+        //
     }
 }

@@ -4,6 +4,7 @@ namespace Kfpl\LibraryBound;
 
 use SoapClient;
 use SoapFault;
+use stdClass;
 
 class LibraryBoundClient
 {
@@ -29,7 +30,7 @@ class LibraryBoundClient
      *
      * @throws SoapFault
      */
-    private function get($function, $parameters): SoapClient
+    private function get(string $function, array $parameters): StdClass
     {
         return (new SoapClient($this->wsdl()))->{$function}($parameters + [
             'LoginName' => $this->user,
@@ -43,10 +44,10 @@ class LibraryBoundClient
      *
      * @throws SoapFault
      */
-    public function bookInfo(string $identifier): SoapClient
+    public function findItem(string $identifier): LibraryBoundResponse
     {
-        return $this->get(self::BOOK_INFO_ACTION, [
+        return new LibraryBoundResponse($this->get(self::BOOK_INFO_ACTION, [
             'ISBN' => $identifier,
-        ]);
+        ]));
     }
 }
