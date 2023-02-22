@@ -8,6 +8,6 @@ class LibraryBoundFacade extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'LibraryBound';
+        return 'librarybound';
     }
 }

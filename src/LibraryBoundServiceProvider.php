@@ -12,27 +12,27 @@ class LibraryBoundServiceProvider extends ServiceProvider
     {
         $this->publishes(
             [__DIR__.'/../config/librarybound.php' => config_path('librarybound.php')],
-            'LibraryBound'
+            'librarybound'
         );
     }
 
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/librarybound.php', 'LibraryBound');
+        $this->mergeConfigFrom(__DIR__.'/../config/librarybound.php', 'librarybound');
 
-        $this->app->singleton('LibraryBound', function ($app) {
+        $this->app->singleton('librarybound', function ($app) {
             $config = $app->make('config');
 
             return new LibraryBoundClient(
-                $config->get('LibraryBound.url'),
-                $config->get('LibraryBound.user'),
-                $config->get('LibraryBound.password')
+                $config->get('librarybound.url'),
+                $config->get('librarybound.user'),
+                $config->get('librarybound.password')
             );
         });
     }
 
     public function provides(): array
     {
-        return ['LibraryBound'];
+        return ['librarybound'];
     }
 }
