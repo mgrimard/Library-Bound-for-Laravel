@@ -8,12 +8,11 @@ use stdClass;
 
 class LibraryBoundClient
 {
-    private const BOOK_INFO_SERVICE = 'BookInfoPort';
     private const BOOK_INFO_ACTION = 'GetBookInfoByISBN';
 
-    public function __construct(private string $url, private readonly string $user, private readonly string $password)
+    public function __construct(private readonly SoapClient $soapClient, private readonly string $user, private readonly string $password)
     {
-        $this->url = $url . '/' . self::BOOK_INFO_SERVICE;
+        //
     }
 
     /**
@@ -32,7 +31,7 @@ class LibraryBoundClient
      */
     private function get(string $function, array $parameters): StdClass
     {
-        return (new SoapClient($this->wsdl()))->{$function}($parameters + [
+        return $this->soapClient->{$function}($parameters + [
             'LoginName' => $this->user,
             'LoginPassword' => $this->password,
         ]);

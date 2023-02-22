@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Kfpl\LibraryBound\LibraryBoundFacade;
 use Kfpl\LibraryBound\LibraryBoundServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use SoapClient;
 
 class TestCase extends Orchestra
 {
@@ -17,7 +18,6 @@ class TestCase extends Orchestra
         $dotenv->load();
 
         parent::setUp();
-//        Http::preventStrayRequests();
     }
 
     protected function getPackageProviders($app)

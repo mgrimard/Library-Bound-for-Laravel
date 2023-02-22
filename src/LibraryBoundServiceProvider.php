@@ -3,6 +3,7 @@
 namespace Kfpl\LibraryBound;
 
 use Illuminate\Support\ServiceProvider;
+use SoapClient;
 
 class LibraryBoundServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,7 @@ class LibraryBoundServiceProvider extends ServiceProvider
             $config = $app->make('config');
 
             return new LibraryBoundClient(
+                new SoapClient($config->get('librarybound.url') . '?wsdl'),
                 $config->get('librarybound.url'),
                 $config->get('librarybound.user'),
                 $config->get('librarybound.password')
