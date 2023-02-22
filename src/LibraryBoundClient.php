@@ -45,7 +45,7 @@ class LibraryBoundClient
      */
     public function bookInfo(string $identifier): SoapClient
     {
-        return $this->get(self::GET_BOOK, [
+        return $this->get(self::BOOK_INFO_ACTION, [
             'ISBN' => $identifier,
         ]);
     }
