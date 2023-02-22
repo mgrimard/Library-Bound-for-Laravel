@@ -7,11 +7,12 @@ use SoapFault;
 
 class LibraryBoundClient
 {
-    private const GET_BOOK = 'GetBookInfoByISBN';
+    private const BOOK_INFO_SERVICE = 'BookInfoPort';
+    private const BOOK_INFO_ACTION = 'GetBookInfoByISBN';
 
-    public function __construct(private readonly string $url, private readonly string $user, private readonly string $password)
+    public function __construct(private string $url, private readonly string $user, private readonly string $password)
     {
-        //
+        $this->url = $url . '/' . self::BOOK_INFO_SERVICE;
     }
 
     /**
@@ -19,7 +20,7 @@ class LibraryBoundClient
      */
     private function wsdl(): string
     {
-        return $this->url.'?wsdl';
+        return $this->url . '?wsdl';
     }
 
     /**
