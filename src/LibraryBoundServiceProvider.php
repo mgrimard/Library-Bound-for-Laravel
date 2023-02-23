@@ -26,9 +26,8 @@ class LibraryBoundServiceProvider extends ServiceProvider
 
             return new LibraryBoundClient(
                 new SoapClient($config->get('librarybound.url') . '?wsdl'),
-                $config->get('librarybound.url'),
                 $config->get('librarybound.user'),
-                $config->get('librarybound.password')
+                $config->get('librarybound.password'),
             );
         });
     }

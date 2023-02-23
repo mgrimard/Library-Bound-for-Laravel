@@ -123,19 +123,19 @@ class ItemInfoTest extends TestCase {
     {
         $mock = $this->mock(SoapClient::class);
         $mock->expects('GetBookInfoByISBN')
-            ->with(['ISBN' => 'baddata', 'LoginName' => '', 'LoginPassword' => ''])
+            ->with(['ISBN' => 'baddata', 'LoginName' => 'test', 'LoginPassword' => 'test'])
             ->andReturn((object) [
                 'GetBookInfoByISBNResult' => (object) [
-                    'Status' => "Error: login name 'https://prod.librarybound.com/vip/services/BookInfoPort' is not a username for LBI's system",
+                    'Status' => "Error: login name 'test' is not a username for LBI's system",
                 ]
             ])
             ->getMock();
 
-        $client = new LibraryBoundClient($mock, '', '');
+        $client = new LibraryBoundClient($mock, 'test', 'test');
         $result = $client->findItem('baddata');
 
         $this->assertTrue($result->hasError());
-        $this->assertEquals("Error: login name 'https://prod.librarybound.com/vip/services/BookInfoPort' is not a username for LBI's system", $result->getErrorMessage());
+        $this->assertEquals("Error: login name 'test' is not a username for LBI's system", $result->getErrorMessage());
         $this->assertNull($result->get());
     }
 }
