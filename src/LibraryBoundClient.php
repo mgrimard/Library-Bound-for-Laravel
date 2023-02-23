@@ -31,10 +31,6 @@ class LibraryBoundClient
      */
     private function get(string $function, array $parameters): StdClass
     {
-        dd($parameters + [
-                'LoginName' => $this->user,
-                'LoginPassword' => $this->password,
-            ]);
         return $this->soapClient->{$function}($parameters + [
             'LoginName' => $this->user,
             'LoginPassword' => $this->password,
