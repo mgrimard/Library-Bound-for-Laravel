@@ -11,7 +11,7 @@ class LibraryBoundResponse
     private ?ItemInfo $item = null;
 
     public function __construct($response) {
-        if (Str::contains($response->GetBookInfoByISBNResult->Status, 'Error')) {
+        if ($response->GetBookInfoByISBNResult->Status !== "OK") {
             $this->errorMessage = $response->GetBookInfoByISBNResult->Status;
         } else {
             $this->item = new ItemInfo($response->GetBookInfoByISBNResult->BookInfo);
